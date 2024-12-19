@@ -1,0 +1,6 @@
+pharmacy_name = "Wildcat Pharmacy"
+website = "wildcatpharmacy.com"
+address = "1234 Pharmacy Blvd, Tucson, AZ, 85719"
+owner = "Sharon ONeal"
+phone_number = "520-123-4567"
+working_hours = "8 AM to 8 PM"

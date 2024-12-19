@@ -1,0 +1,9 @@
+{% extends "webApp/loggedin.html" %} 
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>Item Added Successfully</h1>
+  <p>Your item has been successfully added to cart!</p>
+  <a href="{% url 'check_inventory' %}" class="btn btn-primary">Add Another Item</a>
+  <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+{% endblock %}

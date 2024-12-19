@@ -1,0 +1,20 @@
+{% extends "webApp/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Login</legend>
+      {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">Login</button>
+    </div>
+  </form>
+</div>
+<div>
+  <a href="{% url 'first_time_password' %}">First time user?</a>
+</div>
+{% endblock %}

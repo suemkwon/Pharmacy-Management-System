@@ -1,0 +1,113 @@
+{% extends "webApp/loggedin.html" %} {% block content %}
+<div class="container">
+  <div
+    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  >
+    <h1 class="h2">Welcome, {{ user.username }}!</h1>
+  </div>
+  {% if user_type == 'M' %}
+    {% if expired_medications %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Expired Medications Alert</h4>
+        <p>The following medications have expired:</p>
+        <ul>
+          {% for med in expired_medications %}
+          <li>{{ med.item }} - Expired on {{ med.expiration_date }}</li>
+          {% endfor %}
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+
+    {% if expiring_soon %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <h4 class="alert-heading">Expiring Medications Alert</h4>
+      <p>The following medications will expire soon:</p>
+      <ul>
+        {% for med in expiring_soon %}
+        <li>{{ med.item }} - Expires on {{ med.expiration_date }}</li>
+        {% endfor %}
+      </ul>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    {% if low_stock %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Low Stock Alert</h4>
+        <p>The following medications have low stock:</p>
+        <ul>
+          {% for med in low_stock %}
+          <li>{{ med.item }} - Amount {{ med.amount }}</li>
+          {% endfor %}
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+  {% endif %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Patients</h5>
+          <a href="{% url 'patient' %}" class="btn">Go to Patients</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Staff</h5>
+          <a href="{% url 'staff' %}" class="btn">Go to Staff</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-3 pt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Prescriptions</h5>
+          <a href="{% url 'prescription' %}" class="btn">Go to Prescriptions</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-3 pt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Inventory</h5>
+          <a href="{% url 'check_inventory' %}" class="btn">Go to Inventory</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-3 pt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Transaction History</h5>
+          <a href="{% url 'list_transactions' %}" class="btn"
+            >Go to Transaction History</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-3 pt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Prescription Log</h5>
+          <a href="{% url 'prescription_activity_log' %}" class="btn"
+            >Go to Prescription Log</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-3 pt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Financial Report</h5>
+          <a href="{% url 'financial_report' %}" class="btn"
+            >Go to Financial Report</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

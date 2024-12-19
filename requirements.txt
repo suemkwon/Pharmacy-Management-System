@@ -1,0 +1,7 @@
+Django==5.1.1                 # Core framework
+djangorestframework==3.14.0    # Django REST Framework
+django-extensions==3.2.1       # Development tools
+django-nextjs==2.0.0           # Next.js integration
+django-crispy-forms==2.0.0     # Crispy Forms
+crispy-bootstrap4==2022.1      # Bootstrap 4 theme for Crispy Forms
+django-axes==6.0.0             # Security (Brute-force protection)

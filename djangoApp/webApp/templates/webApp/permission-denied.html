@@ -1,0 +1,8 @@
+{% extends "webApp/loggedin.html" %} 
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>Permission Denied</h1>
+  <p>You do not have access to this page.</p>
+  <a href="{% url 'dashboard' %}" class="btn btn-primary">Return to Dashboard</a>
+{% endblock %}

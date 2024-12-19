@@ -1,0 +1,54 @@
+{% extends "webApp/loggedin.html" %} {% load static %} {% block content %}
+
+  <div class="container">
+    <h1>Transaction History</h1>
+        <!-- Date Range Form for Filtering -->
+    <form method="get" class="form-inline mb-3">
+        <div class="form-group mr-2">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" class="form-control"
+                   value="{{ request.GET.start_date }}">
+        </div>
+        <div class="form-group mr-2">
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" class="form-control"
+                   value="{{ request.GET.end_date }}">
+        </div>
+        <!--Inventory filter-->
+        
+        <div class="form-group form-check mr-2">
+            <input type="checkbox" id="filter_inventory" name="filter_inventory"
+                   class="form-check-input"
+                   {% if request.GET.filter_inventory == 'on' %}checked{% endif %}>
+            <label for="filter_inventory" class="form-check-label">Show only Inventory transactions</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+    <div class="card">
+      <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Transaction Type</th>
+          <th>Details</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in transactions %}
+        <tr>
+          <td>{{ row.transaction_type }}</td>
+          <td>{{ row.details }}</td>
+          <td>{{ row.created_at }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3">No transactions found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+{% endblock %}

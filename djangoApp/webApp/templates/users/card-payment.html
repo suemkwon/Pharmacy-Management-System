@@ -1,0 +1,21 @@
+{% extends "webApp/loggedin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Credit/Debit Payment</h1>
+
+    <div class="total-amount">
+      <h3>Total: ${{ grand_total }}</h3>  
+    </div>
+
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }} 
+      <button type="submit" class="btn btn-submit">Submit Payment</button>
+    </form>
+    <div class="mt-4">
+      <a href="{% url 'payment' %}" class="btn btn-secondary">Back to Payment Options</a>
+    </div>
+  </div>
+{% endblock %}

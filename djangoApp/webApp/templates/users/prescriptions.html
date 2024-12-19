@@ -1,0 +1,65 @@
+{% extends "webApp/loggedin.html" %} {% load static %} {% block content %}
+<div class="container">
+  <h1>Prescriptions</h1>
+  <div class="text-right mb-3">
+    <a href="{% url 'new_prescription' %}" class="btn">Add Prescription</a>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Prescription Number</th>
+            <th>Patient Name</th>
+            <th>Medication</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prescription in prescriptions %}
+          <tr>
+            <td>{{ prescription.prescription_number }}</td>
+            <td>{{ prescription.patient.name }}</td>
+            <td>{{ prescription.medication }}</td>
+            <td>{{ prescription.medication_amount }}</td>
+            <td>{{ prescription.get_status_display }}</td>
+            <td>
+              <a
+                href="{% url 'edit_prescription' prescription.prescription_number %}"
+                class="btn btn-sm"
+                >Edit</a
+              >
+              <a
+                href="{% url 'delete_prescription' prescription.prescription_number %}"
+                class="btn btn-sm"
+              >
+                Delete</a
+              >
+              {% if prescription.status == 'not_filled' %}
+              <a
+                href="{% url 'fill_prescription' prescription.prescription_number %}"
+                class="btn btn-sm btn-success"
+                >Fill Prescription</a
+              >
+              {% endif %} {% if prescription.status == 'filled' %}
+              <a
+                href="{% url 'pick_up_prescription' prescription.prescription_number %}"
+                class="btn btn-sm btn-success"
+                >Pick Up Prescription</a
+              >
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-center">No prescriptions found</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

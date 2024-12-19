@@ -1,0 +1,20 @@
+{% extends "webApp/loggedin.html" %} {% load crispy_forms_tags %} 
+{% block content %}
+<div class="container">
+  <a href="{% url 'check_inventory' %}" class="btn"> ← Back to inventory </a>
+  <h1>Add New Inventory</h1>
+
+  {% if messages %}
+  <div class="alert alert-danger">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %} {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Save Inventory</button>
+  </form>
+</div>
+{% endblock %}

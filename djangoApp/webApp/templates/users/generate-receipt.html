@@ -1,0 +1,53 @@
+{% extends "webApp/loggedin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div id="receipt-container" style="max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; font-family: Arial, sans-serif;">
+    <h1 style="text-align: center; margin-bottom: 20px;">Receipt</h1>
+
+    <p><strong>Date:</strong> {{ created_at|date:"F j, Y, g:i a" }}</p>
+    <p><strong>Payment Method:</strong> {{ payment_method }}</p>
+    <p><strong>Total:</strong> ${{ grand_total }}</p>
+
+    <hr style="margin: 20px 0;">
+
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <thead>
+            <tr>
+                <th style="border-bottom: 1px solid #ddd; text-align: left; padding: 8px;">Product</th>
+                <th style="border-bottom: 1px solid #ddd; text-align: center; padding: 8px;">Quantity</th>
+                <th style="border-bottom: 1px solid #ddd; text-align: right; padding: 8px;">Price</th>
+                <th style="border-bottom: 1px solid #ddd; text-align: right; padding: 8px;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #ddd;">{{ order.product_name }}</td>
+                <td style="padding: 8px; text-align: center; border-bottom: 1px solid #ddd;">{{ order.product_quantity }}</td>
+                <td style="padding: 8px; text-align: right; border-bottom: 1px solid #ddd;">${{ order.product_amount|floatformat:2 }}</td>
+                <td style="padding: 8px; text-align: right; border-bottom: 1px solid #ddd;">${{ order.item_total|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr style="margin: 20px 0;">
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="printReceipt()" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Print Receipt</button>
+    </div>
+</div>
+
+<script>
+    // Print the receipt
+    function printReceipt() {
+        var originalContent = document.body.innerHTML;
+        var receiptContent = document.getElementById("receipt-container").innerHTML;
+
+        document.body.innerHTML = receiptContent;
+        window.print();
+        document.body.innerHTML = originalContent;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "webApp/loggedin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Payment Successful</h2>
+    <p>Thank you! Your payment has been processed successfully.</p>
+
+    {% if change_due is not None %}
+        <div class="alert alert-info mt-4">
+            <h4>Change Due: ${{ change_due }}</h4>
+        </div>
+    {% endif %}
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a href="{% url 'generate_receipt' receipt.id %}" class="btn btn-secondary">Generate Receipt</a>
+    </div>
+</div>
+{% endblock content %}

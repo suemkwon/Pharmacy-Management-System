@@ -1,0 +1,40 @@
+{% extends "webApp/loggedin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Cash Payment</h1>
+
+    <div class="total-amount my-4">
+      <h3 class="text-primary">Grand Total: ${{ grand_total }}</h3>
+    </div>
+
+    {% if error_message %}
+      <div class="alert alert-danger">
+        {{ error_message }}
+      </div>
+    {% endif %}
+
+    {% if change_due is not None %}
+      <div class="alert alert-info">
+        <h4>Change Due: ${{ change_due }}</h4>
+      </div>
+    {% endif %}
+
+    <form method="POST" novalidate>
+      {% csrf_token %}
+
+      <div class="form-group mb-4">
+        <label for="cash_received" class="form-label">Amount Received:</label>
+        <input type="number" name="cash_received" id="cash_received" step="0.01" required>
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit Payment</button>
+    </form>
+
+    <div class="mt-4">
+      <a href="{% url 'payment' %}" class="btn btn-secondary">Back to Payment Options</a>
+    </div>
+  </div>
+
+{% endblock %}

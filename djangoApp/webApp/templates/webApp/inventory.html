@@ -1,0 +1,51 @@
+{% extends "webApp/loggedin.html" %} {% load static %} {% block content %}
+
+<div class="container">
+  <h1>Inventory</h1>
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Medicine</th>
+            <th>Amount</th>
+            <th>Expiration Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in inventory %}
+          <tr>
+            <td>{{ item.medicine }}</td>
+            <td>{{ item.amount }}</td>
+            <td>{{ item.expiration_date }}</td>
+            <td>
+              <a href="{% url 'add_to_cart' item.id %}" class="btn btn-sm"
+                >Add to Cart</a
+              >
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">No inventory items found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <div>
+          <a href="{% url 'add_inventory'  %}" class="btn btn-sm mb-1 mt-1"
+            >Add New Medicine</a
+          >
+          <a
+            href="{% url 'remove_expired_medicine' %}"
+            class="btn btn-sm mb-1 mt-1"
+            >Remove Expired Medicine</a
+          >
+          <a href="{% url 'checkout' %}" class="btn btn-sm mb-1 mt-1"
+            >View Cart</a
+          >
+        </div>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

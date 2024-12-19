@@ -1,0 +1,21 @@
+{% extends "webApp/loggedin.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+  <h1>Add to Cart</h1>
+
+  <form method="POST">
+    {% csrf_token %} {{ form|crispy }}
+
+  {% if messages %}
+  <div class="alert alert-success" role="alert">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+{% endif %}
+    <button type="submit" class="btn btn-primary">Add to Cart</button>
+    <a href="{% url 'check_inventory' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "webApp/loggedin.html" %} {% block content %}
+<div class="container">
+  <h1>Prescription Log</h1>
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Pharmacist Name</th>
+            <th>Prescription Number</th>
+            <th>Patient</th>
+            <th>Medication</th>
+            <th>Amount</th>
+            <th>Date Created</th>
+            <th>Date Updated</th>
+            <th>Order Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for log in logs %}
+          <tr>
+            <td>{{ log.pharmacist_name }}</td>
+            <td>{{ log.prescription_number }}</td>
+            <td>{{ log.patient }}</td>
+            <td>{{ log.medication }}</td>
+            <td>{{ log.medication_amount }}</td>
+            <td>{{ log.created_at }}</td>
+            <td>{{ log.updated_at }}</td>
+            <td>{{ log.order_number }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7">No prescription activity found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

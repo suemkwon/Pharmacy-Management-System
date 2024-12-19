@@ -1,0 +1,14 @@
+{% extends "webApp/loggedin.html" %} 
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Choose Payment Method</h1>
+    <p class="mb-4">Please select your preferred payment method to proceed with the transaction.</p>
+
+    <div class="d-flex justify-content-start gap-4">
+      <a href="{% url 'cash_payment' %}" class="btn btn-submit mt-3">Cash Payment</a>
+      <a href="{% url 'card_payment' %}" class="btn btn-submit mt-3">Credit/Debit Payment</a>
+    </div>
+  </div>
+{% endblock %}

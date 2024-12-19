@@ -1,0 +1,45 @@
+{% extends "webApp/loggedin.html" %} {% load crispy_forms_tags %} 
+{% block content %}
+<head>
+  <title>Profile</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="card shadow-sm">
+          <div class="card-header text-white" style="background-color: #1e5288">
+            <h1 class="mb-0 d-flex justify-content-between align-items-center">
+              {{ user.username }}
+              <span class="badge bg-light text-dark"
+                >{{ user.get_user_type_display }}</span
+              >
+            </h1>
+          </div>
+          <div class="card-body">
+            <div class="user-details mb-4">
+              <h2 class="mb-3">
+                <i class="bi bi-telephone-fill"></i> Phone: {{ user.phone_number }}
+              </h2>
+              <h2><i class="bi bi-shop"></i> Store: {{ user.store_name }}</h2>
+            </div>
+            <div class="text-end">
+              <a
+                class="btn btn-outline-primary"
+                href="{% url 'password_reset' %}"
+              >
+                <i class="bi bi-shield-lock-fill"></i> Reset Password
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+{% endblock %}

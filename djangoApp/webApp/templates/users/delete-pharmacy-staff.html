@@ -1,0 +1,45 @@
+{% extends "webApp/loggedin.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <h1>Delete Pharmacy Staff</h1>
+  <div class="alert alert-warning">
+    <p>Are you sure you want to delete the following staff member?</p>
+    <p><strong>Username:</strong> {{ staff.username }}</p>
+    <p><strong>Phone Number:</strong> {{ staff.phone_number }}</p>
+    <p><strong>Store Name:</strong> {{ staff.store_name }}</p>
+    <p><strong>User Type:</strong> {{ staff.user_type }}</p>
+  </div>
+  <form action="{% url 'delete_pharmacy_staff' staff.id %}" method="POST">
+    {% csrf_token %}
+    <div class="text-right">
+      <button type="submit" class="btn btn-danger">Confirm Delete</button>
+      <a href="{% url 'staff' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script>
+  function deleteStaff(staffId) {
+    fetch(`/api/staff/delete/${staffId}/`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}", 
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          window.location.href = "/staff/";
+        } else {
+          return response.json().then((error) => {
+            console.log("Error: ", error);
+          });
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+</script>
+{% endblock %}

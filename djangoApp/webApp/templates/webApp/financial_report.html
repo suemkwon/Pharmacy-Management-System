@@ -1,0 +1,79 @@
+{% extends "webApp/loggedin.html" %} {% load static %} {% block content %}
+<head>
+<title>Financial Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: right;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Financial Report for Current Quarter</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Total Sales ($)</th>
+                <th>Total Quantity Sold</th>
+                <th>Number of Purchases</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in monthly_report %}
+            <tr>
+                <td>{{ report.month|date:"F Y" }}</td>
+                <td>{{ report.total_sales|floatformat:2 }}</td>
+                <td>{{ report.total_quantity }}</td>
+                <td>{{ report.num_transactions }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<!-- Chart.js Graph -->
+    <div style="width: 80%; margin: 30px auto;">
+        <canvas id="financialChart"></canvas>
+    </div>
+
+    <!-- Load Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Prepare chart data from Django context
+      var chartData = {
+        labels: {{ chart_data.labels|safe }},  // Month labels
+        datasets: {{ chart_data.datasets|safe }}  // Datasets for different metrics
+        };
+
+        // Create the chart
+        var ctx = document.getElementById('financialChart').getContext('2d');
+        var financialChart = new Chart(ctx, {
+            type: 'bar',  // Choose the type of chart (bar chart in this case)
+            data: chartData,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+{% endblock %}

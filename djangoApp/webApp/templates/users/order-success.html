@@ -1,0 +1,8 @@
+{% extends "webApp/loggedin.html" %} 
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>Order Successful</h1>
+  <p>Your order has been successfully sent!</p>
+  <a href="{% url 'order_medicine' %}" class="btn btn-primary">Return to Order Medicine</a>
+{% endblock %}

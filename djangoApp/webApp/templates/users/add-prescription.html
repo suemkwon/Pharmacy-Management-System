@@ -1,0 +1,21 @@
+{% extends "webApp/loggedin.html" %} {% load crispy_forms_tags %} 
+{% block content %}
+<div class="container">
+  <a href="{% url 'prescription' %}" class="btn mb-3"> ← Back to prescriptions </a>
+  <h1>Add New Prescription</h1>
+
+  {% if messages %}
+  <div class="alert alert-danger">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %} {{ form|crispy }}
+
+    <button type="submit" class="btn btn-success">Save Prescription</button>
+  </form>
+</div>
+{% endblock %}

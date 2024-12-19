@@ -1,0 +1,8 @@
+{% extends "webApp/loggedin.html" %} 
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>Account Unlocked</h1>
+  <p>Account has been successfully unlocked!</p>
+  <a href="{% url 'dashboard' %}" class="btn btn-primary">Return to Dashboard</a>
+{% endblock %}
